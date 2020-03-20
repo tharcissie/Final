@@ -1,0 +1,53 @@
+{% extends 'base_accounts.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content%}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+        <table class="table mt-5">
+            <thead class="bg-primary text-white ">
+              <tr>
+                <th scope="col">Subject</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Updated At</th>  
+              </tr>
+            </thead>
+            <tbody>
+                {% for article in object_list %}
+                  <tr>
+                    <td>{{ article.subject }}<br></td>
+                    <td class="text-botton">{{article.created_at|naturaltime }}</td>
+                    <td>{{article.updated_at|naturaltime }}
+                        <div class="float-right">
+                            <a class="btn btn-outline-light mr-4 text-light bg-success align-baseline"  href="{% url 'article_detail' article.id %}">View</a>
+                            <a class="btn btn-outline-light mr-4 text-light bg-warning" href="{% url 'article_edit' article.id %}">Update</a>
+                            <a class="btn btn-outline-light mr-4 text-light bg-danger" href="{% url 'article_delete' article.id %}">Delete</a>
+                        </div>
+                    </td> 
+                  </tr>
+                  
+                {% endfor %}
+            </tbody>
+          </table> 
+          <div class="row pagination align-items-center">
+              <div class="col-10 offset-1 col-lg-8 offset-lg-2 div-wrapper d-flex justify-content-center align-items-center">
+        
+            {% if object_list.has_previous %}
+            <!-- <a class="btn btn-primary" href="?page=1">First</a> -->
+            <a  class="btn btn-dark" href="?page={{ object_list.previous_page_number }}">Previous</a>
+            {% endif %}
+          
+            <span class="btn btn-light">{{ object_list.number }}</span>
+            <span class="btn btn-">of</span>
+            <span class="btn btn-light">{{ object_list.paginator.num_pages }}</span>
+          
+            {% if object_list.has_next %}
+            <a class="btn btn-dark" href="?page={{ object_list.next_page_number }}">Next</a>
+            <!-- <a class="btn btn-primary"href="?page={{ object_list.paginator.num_pages }}">Last</a> -->
+            {% endif %}
+          </div>
+        </div>
+        </main>
+{% endblock %}
+  

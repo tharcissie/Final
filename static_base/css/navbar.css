@@ -1,0 +1,15 @@
+.navbar{
+    background: #066593 !important;
+}
+.login:hover, .signup:hover{
+    background: #036f9d;
+}
+
+.navbar-toggler:hover{
+    background-color: yellowgreen;
+
+}
+
+.login,.signup{
+    background-color:  #066593 !important;
+}

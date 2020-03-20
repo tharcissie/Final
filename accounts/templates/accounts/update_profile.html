@@ -1,0 +1,45 @@
+{% extends 'base_accounts.html' %}
+{% load widget_tweaks %} 
+
+{% load static %}
+
+
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <h4 class="mb-4 mt-2">Profile</h4>
+    <hr class="mt-1">
+  <div class="row">
+    <div class="col-lg-4 col-md-8 col-sm-10">
+        <h6>Profile Photo</h6>
+    </div>
+   <div class="col-lg-2 col-md-8 col-sm-10">
+            <img class="rounded-circle profile-pic" src="{{ user.profile.image.url }}" >
+            
+    </div>
+    <div class="col-lg-6 col-md-8 col-sm-10">
+        <section style="padding-bottom: 29px">
+ 
+        </section>
+        <section>
+            <p>Photo must be jpg,png or jpeg <br>
+               with maximum  size of 700 KB</p>
+        </section>
+
+    </div> 
+  </div>
+  <hr class="mt-5 mb-3">
+  <div class="row">
+      <div class="col-lg-6 col-md-8 col-sm-10">
+            <h6>User Information</h6>
+      </div>
+      <div class="col-lg-6 col-md-8 col-sm-10">
+            <form method="post" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {{ u_form }}
+                        {{ p_form }}
+                    <button type="submit" class="btn btn-primary btn-block">Update</button>
+            </form>
+      </div>
+  </div>
+</main>
+{% endblock %}

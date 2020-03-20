@@ -1,0 +1,82 @@
+{% extends "base_accounts.html" %}
+{% load humanize %}
+{% load socialaccount%}
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="row">
+            <div class="col-10">
+                 <h3 class="text-center mt-4"> <b>{{object.subject}}</b></h3>
+                <div  class="mt-4"> {{ object.message|safe}}</div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <strong class="text-muted ">Published by {{ object.author.username }}</strong><br>
+                        <strong class="text-muted text-right">On {{ object.created_at|naturaltime }}</strong>
+                    </div>
+
+    <!------------ Section for Likes ------------------------->
+                    <div class="col-6">
+                    <a href="{{ object.get_like_url}}">
+           <i class="e fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i></a>{{  object.likes.count }}
+                   <a href="{{ object.get_dislike_url}}">
+           <i  class="a fa fa-thumbs-o-down fa-2x" aria-hidden="true"></i></a>{{  object.dislikes.count }}
+           <i  class=" o fa fa-comment-o fa-2x" aria-hidden="true"></i></a>{{ comments.count }}
+                </div> 
+
+                   <br>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    <!------------ Section for comments ------------------------->
+        <h4>Leave a comment</h4>
+        <div class="main-comment-section">
+            <div class="container-fluid mt-2">
+                <div class="form-group row">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ comment_form.as_p }}
+                        <input type="submit" value="Send" class="btn btn-outline-success">
+                    </form>
+                </div>
+            </div>
+            <h5>Comments :</h5>
+            {{ comments.count }} Comment{{ comments|pluralize }}
+            {% for comment in comments %}
+                <blockquote class="blockquote">
+                    
+                    <p class="mb-0" style="border: 2px solid #029ddd ;padding: 7px;"><small>{{ comment.content }}</small></p>
+                    <footer class="blockquote-footer">commented by : <cite title="Source Title">{{ comment.user.username|capfirst }}</cite>
+                        <!-- <button type="button" name="button" class="reply-btn btn btn-outline-dark btn-sm ml-2">Reply</button> -->
+                        <p>{{ comment.timestamp|naturaltime }}</p>
+                    </footer>
+                </blockquote>
+    
+    <!--------------- Section for repling comments -------------->
+    
+                <div class="replied-comments container mt-2 ml-2">
+                    {% for reply in comment.replies.all %}
+                        <blockquote class="blockquote">
+                            <p class="mb-0" style="border: 2px solid #029ddd ;padding: 7px;"><small>{{ reply.content }}</small></p>
+                            <footer class="blockquote-footer">replied by : <cite title="Source Title">{{ reply.user.username|capfirst }}</cite>
+                                <p>{{ reply.timestamp|naturaltime }}</p>
+                            </footer>
+                        </blockquote>
+                       
+                    {% endfor %}
+                    <div class="form-group  row">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                            {{ comment_form.as_p }}
+                            {% if user.is_authenticated%}
+                            <input type="submit" value="Reply" class="btn btn-outline-success">
+                            {%else%}
+                            <button><a href="{% provider_login_url "google" %}?next={{ request.get_full_path }}">reply</a> </button>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

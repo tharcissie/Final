@@ -1,0 +1,14 @@
+{% extends "base_accounts.html" %}
+
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+<h1>Article Delete</h1>
+
+<form method="post">{% csrf_token %}
+    Are you sure you want to delete "{{ object }}" ?
+    
+    <input class="btn btn-outline-danger mr-4 text-light bg-success" type="submit" value="Yes" />
+</form>
+</main>
+{% endblock %}
+

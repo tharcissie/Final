@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <h4>{{ college.name }}</h4>
+    </div>
+<div class="row">
+    {% for articles in article_list %}
+
+      <div class="card mb-4 ml-2 ">
+            <div class="card-body">
+                <a href="{% url 'article_details' articles.id %}"><h4 class="card-title text-primary">{{ articles.subject }}</h4></a>
+                <p class="card-image"> <img src="{{ articles.picture.url}}" alt="" width="210px" height="100px"> </p>
+                <p class="card-text"> <hr> </p>
+                <small><p class="card-text">{{ articles.created_at }}</p></small>
+                <small><p class="card-text">Publisher:  {{ articles.author }}</p></small>
+                <small><a href="{% url 'article_by_college' articles.college.pk %}"><p>{{ articles.college }}</p></a></small>
+
+            </div>
+        </div>
+      {% endfor %}
+</div>
+
+{% endblock  %}
+    
+
+{% block footer %}
+    {% include 'includes/footer.html' %}
+{% endblock  %}
+    

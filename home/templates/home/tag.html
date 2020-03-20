@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+
+    <h2 class="text-align-center">Related Tags</h2>
+
+    <div class="row">
+        {% for articl in object_list %}
+        <div class="col-md-4 mt-4 left">
+            <div class="card mb-4 h-100" >
+            <div class="card card-body flex-fill">
+                <a href="{% url 'article_details' articl.id %}"><h4 class="card-title text-primary">{{ articl.subject }}</h4></a>
+                <p class="card-image"> <img src="{{ articl.picture.url}}" alt=".....image"width="168px" height="100px"> </p>
+                
+                <hr> 
+                <small><p class="card-tex text-muted">{{ articl.created_at }}</p></small>
+                <small><p class="card-text text-muted">Publisher:  {{ articl.author }}</p></small>
+                <br>
+                <div class="row ">
+                                
+                    <i class="fa fa-thumbs-o-up text-muted" aria-hidden="true"></i>{{  articl.likes.count }}
+                    
+                    <i class="fa fa-thumbs-o-down text-muted" aria-hidden="true"></i>{{  articl.dislikes.count }}
+                     
+                    <i  class="fa fa-comment-o text-muted" aria-hidden="true"></i>{{ comments.count }}
+            </div>
+        </div>
+    </div>
+</div>
+    
+        {% endfor %}
+    </div> 
+
+{% endblock %}
+
+
+
+
+

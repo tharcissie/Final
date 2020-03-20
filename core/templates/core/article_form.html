@@ -1,0 +1,21 @@
+{% extends "base_accounts.html" %}
+
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <!-- {{ form.as_p }} -->
+  {{form.media}}
+  {% include 'includes/form.html' %}
+  <div class="mt-5">
+  <button type="submit" class=".btn-change-create btn btn-success float-right ">Create</button>
+  </div>
+</form>
+
+</main>
+
+{% endblock %}
+
+
+

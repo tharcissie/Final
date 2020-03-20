@@ -1,0 +1,80 @@
+
+
+{% extends "base_accounts.html" %}
+
+<div class="pagination">
+        <span class="step-links">
+            {% if object_list.has_previous %}
+                <a href="?page={{ object_list.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+            </span>
+    
+            {% if object_list.has_next %}
+                <a href="?page={{ object_list.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div> 
+    <!--  {% block pagination %}
+   
+     <div class="pagination ">
+        
+
+            {% if object_list.has_previous %}
+              <a class="pagination-action" href="?page=1">
+               <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+              </a>
+              <a class="pagination-action" href="?page={{ object_list.previous_page_number }}">
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+              </a>
+            {% endif %}
+          
+            {% for num in object_list.paginator.page_range %}
+          
+              {% if object_list.number == num %}
+              <span class="pagination-number pagination-current ">{{ num }}</span>
+              {% elif num > object_list.number|add:'-3' and num < object_list.number|add:'3' %}
+              <a class="pagination-number " href="?page={{ num }}">{{ num }}</a>
+              {% endif %}
+          
+            {% endfor %}
+          
+            {% if object_list.has_next %}
+              <a class="pagination-action" href="?page={{ object_list.next_page_number }}">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </a>
+              <a class="pagination-action" href="?page={{ object_list.paginator.num_pages }}">
+                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+              </a>
+            {% endif %} -->
+           
+           
+           
+           <!-- <div class="pagination text-center">
+
+                {% if object_list.has_previous %}
+                  <a class="pagination-action" href="?page=1">
+                   <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                  </a>
+                  <a class="pagination-action" href="?page={{ object_list.previous_page_number }}">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                  </a>
+                {% endif %}
+              
+                <span class="pagination-current">{{ object_list.number }}</span>
+                <span class="pagination-of">of</span>
+                <span class="pagination-total">{{object_list.paginator.num_pages }}</span>
+              
+                {% if object_list.has_next %}
+                  <a class="pagination-action" href="?page={{ object_list.next_page_number }}">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                  </a>
+                  <a class="pagination-action" href="?page={{ object_list.paginator.num_pages }}">
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                  </a>
+                {% endif %}
+              
+              </div>
+              {% endblock %}

@@ -1,0 +1,10 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | UR IDEAS BOARD{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}"><img src="{% static 'img/URbloglogo.jpg' %}" width="70px" height="50px">UR<span style="color: #fff; font-family:sans-serif">BLOG</span>ADMINISTRATION</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

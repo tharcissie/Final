@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h2>College of Business and Economics</h2>
+
+
+<div class="row">
+    {% for articles in articles_cbe %}
+    <div class="col-md-4 mt-4 left">
+        <div class="card mb-4 h-100 ">
+        <div class="card-body">
+            <a href="{% url 'article_details' articles.id %}"><h4 class="card-title text-primary">{{ articles.subject }}</h4></a>
+            <p class="card-image"> <img src="{{ articles.picture.url}}" alt=".....image" width="210px" height="100px"> </p>
+            <!-- <p class="card-text">{{ articles.snippet }}</p> -->
+            <p class="card-text"> <hr> </p>
+            <small><p class="card-text text-muted">wednesday ,August 14, 2019</p></small>
+            <small><p class="card-text text-muted">Publisher:{{ articles.author }}</p></small>
+        <br>
+        <div class="row ">
+                        
+            <i class="fa fa-thumbs-o-up text-muted" aria-hidden="true"></i>{{  articles.likes.count }}
+            
+            <i class="fa fa-thumbs-o-down text-muted" aria-hidden="true"></i>{{  articles.dislikes.count }}
+             
+            <i  class="fa fa-comment-o text-muted" aria-hidden="true"></i>{{ comments.count }}
+           
+            </div> 
+        </div>
+    </div>
+</div>
+
+    {% endfor %}
+   
+        </div>
+
+</div> 
+{% endblock  %}
+    
+

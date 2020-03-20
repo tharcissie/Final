@@ -1,0 +1,23 @@
+.profile .profile-image .profile-pic{
+    width: 148px;
+    height: 148px;
+  }
+  .profile-pic{
+    width: 148px;
+    height: 148px; 
+  }
+  .btn-change-password, .btn-change-create {
+    background-color:  #029ddd  !important
+  }
+
+  .dashboard-username li{
+    color: white;
+    font-size: 15px;
+    list-style: none;
+    float: right;
+    margin-inline-end: 10px;
+    
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+}

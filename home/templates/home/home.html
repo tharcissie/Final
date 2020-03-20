@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+
+
+
+<!----------- Section for search field ----------------------->
+
+{% block search %}
+<div class="row align-items-center my-4">
+  <div class="col-10 offset-1 col-lg-8 offset-lg-2 div-wrapper d-flex justify-content-center align-items-center md-form mt-0">
+ <form class="input-group md-form form-sm form-1 pl-0 col-10" action="{% url 'search_result' %}" method="get">
+    <input class="form-control my-0 py-1 red-border" name="query" type="search" placeholder="Search" aria-label="Search" >
+    <div class="input-group-append" >
+      <button type="submit"  class="input-group-text "><i class="fas fa-search text-grey"
+          aria-hidden="true"></i></button>
+    </div>
+  </form>
+</div>
+</div>
+{% endblock %}
+  
+
+<!----------- Section for jumbotron ----------------------->
+
+{% block curousel %}
+<div class="slider" id="slider1">
+  <!-- Slides -->
+
+  <div>
+    <img src="{% static 'img/background-graduation.jpg' %}" alt="">
+    
+  </div>
+  <!-- The Arrows -->
+  <!-- <i class="left" class="arrows" style="z-index:2; position:absolute;"><svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z"></path></svg></i>
+  <i class="right" class="arrows" style="z-index:2; position:absolute;"><svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" transform="translate(100, 100) rotate(180) "></path></svg></i> -->
+  <!-- Title Bar -->
+  <span class="titleBar">
+      <h1>Welcome to UR IDEAS BOARD</h1>
+  </span>
+</div>
+{% endblock  %}
+  
+
+<!----------- Section for main container ----------------------->
+{% block content %}
+<h2>Latest Articles</h2>
+
+
+  <div class="row">
+      <div class="col-lg-9">
+            <div class="row">
+              {% for articles in article %}
+
+                <div class="col-md-4 mt-5 left  ">
+
+                          {% for tag in articles.tags.all %} 
+ 
+                           <div class="col-md-4">
+
+                             <a class="" href="{% url 'tagged' tag.slug %}">#{{ tag.name }}</a>
+                            
+
+                            </div>           
+                                {% endfor %} 
+
+                    <div class="card mb-4 h-100 ">
+                        <div class="card card-body flex-fill ">
+                            <a href="{% url 'article_details' articles.id %}"><h4 class="card-title text-primary h-56 fixed">{{ articles.subject }}</h4></a>
+                            <p class="card-image"> <img src="{{ articles.picture.url}}" alt="" width="168px" height="100px"> </p>
+                                  <!-- <p class="card-text">{{ articles.snippet }}</p> -->
+                            <hr>
+                            <small><p class="card-text text-muted">{{ articles.created_at }}</p></small>
+                            <small><p class="card-text text-muted">Publisher:  {{ articles.author }}</p></small>
+
+                            <br>
+
+                                   <!-- section of likes and comments icon -->
+                         <div class="row ">
+                        
+                        <i class="fa fa-thumbs-o-up text-muted" aria-hidden="true"></i>{{  articles.likes.count }}
+                        
+                        <i class="fa fa-thumbs-o-down text-muted" aria-hidden="true"></i>{{  articles.dislikes.count }}
+                         
+                        <i  class="fa fa-comment-o text-muted" aria-hidden="true"></i>{{ comments.count }}
+                       
+                        </div> 
+
+                        </div>
+                    </div>
+                </div>
+              {% endfor %}
+          </div>
+        </div>
+
+<!----------- Section for sidebar ----------------------->
+
+<div class="col-lg-3">
+    <div class="row">
+        <div class="col">
+            <h4>Colleges</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item"><a href="{% url 'cst' %}">College of Science and Technology</a></li>
+                            <li class="list-group-item"><a href="{% url 'cavm' %}">College of Agriculture, Animal Sciences and Veterinary Medecine</a></li>
+                            <li class="list-group-item"><a href="{% url 'cass' %}">College of Arts and Social Sciences</a></li>
+                            <li class="list-group-item"><a href="{% url 'cbe' %}">College of Business and Economics</a></li>
+                            <li class="list-group-item"><a href="{% url 'ce' %}">College of Education</a></li>
+                            <li class="list-group-item"><a href="{% url 'cmhs' %}">College of Medecine and Health Sciences</a></li>
+                          </ul>
+                    </div>
+                </div>
+                  <hr>
+
+ <!----------- Section for mailchimp----------------------->
+
+<div class="card">
+    <div class="card-body">
+        <!-- Begin Mailchimp Signup Form -->
+        <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+          #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+          #mc-embedded-subscribe{background: blue}
+          /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+            We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+        </style>
+
+<!--------------------- Begin Mailchimp Signup Form --------->
+
+<div id="mc_embed_signup">
+    <form method="POST">
+      {% csrf_token %}
+      {{form}}
+      <button>Subscribe</button>
+    </form>
+    
+</div>
+      <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+            <!--End mc_embed_signup-->
+      </div>
+          </div>
+              </div>
+                </div>   
+                  </div>
+                     </div> <br><br>
+<div class="container text-center" style="clear: left">
+
+<!-------------------section on pagination ------------------>
+
+<div class="row pagination align-items-center">
+    <div class="col-10 offset-1 col-lg-8 offset-lg-2 div-wrapper d-flex justify-content-center align-items-center">
+
+    {% if article.has_previous %}Page:
+    <!-- <a class="btn btn-dark" href="?page=1">First</a> -->
+    <a  class="btn btn-primary" href="?page={{ article.previous_page_number }}">Previous</a>
+    {% endif %}
+  
+    <span class="btn btn-light">{{ article.number }}</span>
+    <span class="btn btn-back">of</span>
+    <span class="btn btn-light">{{ article.paginator.num_pages }}</span>
+  
+    {% if article.has_next %}
+    <a class="btn btn-primary" href="?page={{article.next_page_number }}">Next</a>
+    <!-- <a class="btn btn-dark"href="?page={{ article.paginator.num_pages }}">Last</a> -->
+    {% endif %}
+  </div>
+</div>
+</div>
+
+{% endblock %}
+
+<!----------------------- Section for footer ------------------->
+
+{% block footer %}
+  {% include "includes/footer.html" %}
+{% endblock %}
